@@ -3,9 +3,17 @@ from django.db import models
 # Create your models here.
 
 
+class Address(models.Model):
+    address_street = models.CharField(max_length=200)
+    address_number = models.IntegerField()
+    localidad = models.CharField(max_length=200)
+    ciudad = models.CharField(max_length=200)
+    provincia = models.CharField(max_length=200)
+
+
 class Location(models.Model):
     name = models.CharField(max_length=200, blank=False)
-    address = models.CharField(max_length=200)
+    address = models.ForeignKey(Address, on_delete=models.RESTRICT)
 
 
 class RehearsalType(models.Model):
@@ -24,6 +32,7 @@ class ChoirSinger(models.Model):
     first_name = models.CharField(max_length=200, blank=False)
     last_name = models.CharField(max_length=200, blank=False)
     date_of_birth = models.DateTimeField()
+    address = models.ForeignKey(Address, on_delete=models.RESTRICT)
 
 
 class Attendance(models.Model):
